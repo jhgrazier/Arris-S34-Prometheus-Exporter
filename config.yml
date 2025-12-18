@@ -1,0 +1,83 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+  log_level: debug
+  grpc_server_max_concurrent_streams: 1000
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /tmp/loki
+  storage:
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+# You need this if you're going to ingest logs via Promtail (push API).
+# It is the usual reason "no logs show up" even when Promtail looks fine.
+ingester:
+  wal:
+    enabled: true
+    dir: /tmp/loki/wal
+
+# Optional but recommended for smoother queries and “recent logs” behavior
+querier:
+  max_concurrent: 4
+  engine:
+    enable_multi_variant_queries: false
+
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+limits_config:
+  metric_aggregation_enabled: true
+  # Bump these if you see rejected entries in Loki logs.
+  ingestion_rate_mb: 16
+  ingestion_burst_size_mb: 32
+  max_streams_per_user: 0
+  max_entries_limit_per_query: 5000
+
+# This is required for Loki to accept writes from Promtail in single-binary mode.
+# Without it, /loki/api/v1/push often fails or Promtail will keep retrying.
+common_config:
+  # Older Loki versions use "common" only, newer use common_config.
+  # Keeping both does not hurt. Loki will ignore unknown blocks.
+  # If your Loki complains about "unknown field common_config", remove this block.
+  path_prefix: /tmp/loki
+
+# Single-process mode wiring (important when running Loki as one binary)
+# Ensures reads and writes point at the same in-memory ring.
+frontend:
+  encoding: protobuf
+
+ruler:
+  alertmanager_url: http://localhost:9093
+
+pattern_ingester:
+  enabled: true
+  metric_aggregation:
+    loki_address: localhost:3100
+
+# By default, Loki will send anonymous, but uniquely-identifiable usage and configuration
+# analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/
+#analytics:
+#  reporting_enabled: false
