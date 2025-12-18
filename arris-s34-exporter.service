@@ -1,16 +1,12 @@
 [Unit]
-Description=Arris S34 Prometheus Exporter
+Description=Arris S34 scrape to node_exporter textfile collector
 After=network-online.target
+Wants=network-online.target
 
 [Service]
-Type=simple
-Environment=MODEM_BASE_URL=https://192.168.100.1
-Environment=MODEM_USERNAME=admin
-Environment=MODEM_PASSWORD=PUT_PASSWORD_HERE
-Environment=EXPORTER_PORT=8000
-ExecStart=/usr/bin/python3 /usr/bin/arris-s34-exporter.py
-Restart=always
-RestartSec=10
+Type=oneshot
+EnvironmentFile=/etc/sysconfig/arris-s34-exporter
+ExecStart=/usr/bin/arris_s34_write_prom.sh
 
 [Install]
 WantedBy=multi-user.target
