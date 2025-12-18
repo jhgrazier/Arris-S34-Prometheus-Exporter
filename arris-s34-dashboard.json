@@ -1,0 +1,111 @@
+{
+  "uid": "arris-s34",
+  "title": "Arris S34 Cable Modem",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "tags": ["arris", "docsis", "modem"],
+  "templating": {
+    "list": [
+      {
+        "name": "job",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(arris_scrape_success, job)",
+        "current": { "selected": true }
+      },
+      {
+        "name": "instance",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(arris_scrape_success{job=\"$job\"}, instance)",
+        "current": { "selected": true }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Scrape OK",
+      "gridPos": { "x": 0, "y": 0, "w": 4, "h": 4 },
+      "targets": [
+        {
+          "expr": "arris_scrape_success{job=\"$job\",instance=\"$instance\"}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Scrape Age (seconds)",
+      "gridPos": { "x": 4, "y": 0, "w": 4, "h": 4 },
+      "targets": [
+        {
+          "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Downstream Power (dBmV)",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "arris_docsis_downstream_power_dbmv{job=\"$job\",instance=\"$instance\"}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Downstream SNR (dB)",
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "arris_docsis_downstream_snr_db{job=\"$job\",instance=\"$instance\"}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Downstream Correctables per second",
+      "gridPos": { "x": 0, "y": 16, "w": 6, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(arris_docsis_downstream_corrected_total{job=\"$job\",instance=\"$instance\"}[5m])",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Downstream Uncorrectables per second",
+      "gridPos": { "x": 6, "y": 16, "w": 6, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(arris_docsis_downstream_uncorrectables_total{job=\"$job\",instance=\"$instance\"}[5m])",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Upstream Power (dBmV)",
+      "gridPos": { "x": 0, "y": 22, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "arris_docsis_upstream_power_dbmv{job=\"$job\",instance=\"$instance\"}",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}
