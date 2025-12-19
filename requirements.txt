@@ -1,3 +1,11 @@
-requests
+# Python dependencies for arris_s34_scrape.py
+# Install with: python3 -m pip install -r requirements.txt
+#
+# Notes:
+# - Playwright requires a one-time browser install:
+#   python3 -m playwright install chromium
+# - lxml is used for faster HTML parsing than Python's built-in parser.
+
+playwright
 beautifulsoup4
-prometheus_client
+lxml
