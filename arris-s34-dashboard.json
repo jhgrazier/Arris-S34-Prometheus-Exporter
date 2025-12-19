@@ -84,11 +84,7 @@
       },
       "pluginVersion": "12.1.1",
       "targets": [
-        {
-          "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "",
-          "refId": "A"
-        }
+        { "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}", "legendFormat": "", "refId": "A" }
       ],
       "title": "Scrape Age (seconds)",
       "type": "stat"
@@ -140,11 +136,7 @@
       },
       "pluginVersion": "12.1.1",
       "targets": [
-        {
-          "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "age",
-          "refId": "A"
-        }
+        { "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}", "legendFormat": "age", "refId": "A" }
       ],
       "title": "Scrape Age (time series)",
       "type": "timeseries"
@@ -196,11 +188,7 @@
       },
       "pluginVersion": "12.1.1",
       "targets": [
-        {
-          "expr": "arris_docsis_downstream_power_dbmv{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "CH {{channel}}",
-          "refId": "A"
-        }
+        { "expr": "arris_docsis_downstream_power_dbmv{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }
       ],
       "title": "Downstream Power (dBmV) by Channel",
       "type": "timeseries"
@@ -252,11 +240,7 @@
       },
       "pluginVersion": "12.1.1",
       "targets": [
-        {
-          "expr": "arris_docsis_downstream_snr_db{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "CH {{channel}}",
-          "refId": "A"
-        }
+        { "expr": "arris_docsis_downstream_snr_db{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }
       ],
       "title": "Downstream SNR (dB) by Channel",
       "type": "timeseries"
@@ -383,163 +367,51 @@
         "tooltip": { "mode": "multi" }
       },
       "targets": [
-        {
-          "expr": "arris_docsis_upstream_power_dbmv{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "CH {{channel}}",
-          "refId": "A"
-        }
+        { "expr": "arris_docsis_upstream_power_dbmv{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }
       ],
       "title": "Upstream Power (dBmV) by Channel",
       "type": "timeseries"
     },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 38 },
-      "id": 9,
-      "options": {
-        "orientation": "horizontal",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
-        "textMode": "auto"
-      },
-      "targets": [
-        {
-          "expr": "time() - arris_eventlog_last_event_timestamp_seconds{job=\"$job\",instance=\"$instance\"}",
-          "refId": "A"
-        }
-      ],
-      "title": "Seconds Since Last Modem Event",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 38 },
-      "id": 10,
-      "options": {
-        "orientation": "horizontal",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
-        "textMode": "auto"
-      },
-      "targets": [
-        {
-          "expr": "time() - arris_eventlog_last_login_timestamp_seconds{job=\"$job\",instance=\"$instance\"}",
-          "refId": "A"
-        }
-      ],
-      "title": "Seconds Since Last WebGUI Login",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 38 },
-      "id": 11,
-      "options": {
-        "legend": { "displayMode": "table", "placement": "right", "showLegend": true },
-        "tooltip": { "mode": "multi" }
-      },
-      "targets": [
-        {
-          "expr": "arris_eventlog_entries_total{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "{{level}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Event Log Entries by Level (current totals)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 42 },
-      "id": 12,
-      "options": {
-        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "single" }
-      },
-      "targets": [
-        {
-          "expr": "arris_eventlog_webgui_login_success_total{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "success",
-          "refId": "A"
-        }
-      ],
-      "title": "WebGUI Login Success Total",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 46 },
-      "id": 13,
-      "options": {
-        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "single" }
-      },
-      "targets": [
-        {
-          "expr": "arris_eventlog_webgui_login_failed_total{job=\"$job\",instance=\"$instance\"}",
-          "legendFormat": "failed",
-          "refId": "A"
-        }
-      ],
-      "title": "WebGUI Login Failed Total",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 54 },
-      "id": 14,
-      "options": { "showHeader": true, "sortBy": [] },
-      "targets": [
-        {
-          "expr": "arris_eventlog_entries_total{job=\"$job\",instance=\"$instance\"}",
-          "format": "table",
-          "instant": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Event Log Levels (table)",
-      "type": "table"
-    },
 
     {
-      "datasource": { "type": "loki", "uid": "REPLACE_WITH_YOUR_LOKI_UID" },
-      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 62 },
-      "id": 20,
-      "title": "Arris Event Log (raw lines)",
-      "type": "logs",
-      "targets": [
-        { "expr": "{job=\"arris_s34_eventlog\"}", "refId": "A" }
-      ],
+      "datasource": { "type": "loki", "uid": "$loki_uid" },
+      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 38 },
+      "id": 100,
       "options": {
-        "showLabels": true,
         "showTime": true,
+        "showLabels": false,
         "wrapLogMessage": true,
-        "prettifyLogMessage": true,
+        "enableLogDetails": true,
         "dedupStrategy": "none",
-        "enableLogDetails": true
-      }
+        "sortOrder": "Descending",
+        "prettifyLogMessage": true
+      },
+      "targets": [
+        {
+          "expr": "{job=\"$loki_job\"} | json | line_format \"{{.ts}} [{{.level}}] {{.desc}}\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Arris S34 Event Log (live)",
+      "type": "logs"
     },
     {
-      "datasource": { "type": "loki", "uid": "REPLACE_WITH_YOUR_LOKI_UID" },
-      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 76 },
-      "id": 21,
-      "title": "Arris Event Log (parsed JSON, readable)",
-      "type": "logs",
-      "targets": [
-        { "expr": "{job=\"arris_s34_eventlog\"} | json", "refId": "A" }
-      ],
+      "datasource": { "type": "loki", "uid": "$loki_uid" },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 52 },
+      "id": 101,
       "options": {
-        "showLabels": true,
-        "showTime": true,
-        "wrapLogMessage": true,
-        "prettifyLogMessage": true,
-        "dedupStrategy": "none",
-        "enableLogDetails": true
-      }
+        "showHeader": true,
+        "sortBy": []
+      },
+      "targets": [
+        {
+          "expr": "{job=\"$loki_job\"} | json",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Arris S34 Event Log (table view from JSON)",
+      "type": "table"
     }
   ],
   "preload": false,
@@ -563,6 +435,22 @@
         "query": "localhost:9100",
         "skipUrlSync": true,
         "type": "constant"
+      },
+      {
+        "current": { "text": "REPLACE_WITH_YOUR_LOKI_UID", "value": "REPLACE_WITH_YOUR_LOKI_UID" },
+        "hide": 2,
+        "name": "loki_uid",
+        "query": "REPLACE_WITH_YOUR_LOKI_UID",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "current": { "text": "arris_s34_eventlog", "value": "arris_s34_eventlog" },
+        "hide": 2,
+        "name": "loki_job",
+        "query": "arris_s34_eventlog",
+        "skipUrlSync": true,
+        "type": "constant"
       }
     ]
   },
@@ -573,5 +461,5 @@
   "timezone": "browser",
   "title": "Arris S34 Modem",
   "uid": "arris-s34-modem",
-  "version": 6
+  "version": 7
 }
