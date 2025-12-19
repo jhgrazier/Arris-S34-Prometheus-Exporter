@@ -1,174 +1,225 @@
-# Arris S34 Prometheus Exporter
+# Arris S34 Modem Monitoring (Prometheus + Grafana + Loki)
 
-Prometheus exporter for the Arris S34 DOCSIS 3.1 cable modem.
+This project provides full observability for an Arris S34 cable modem using Prometheus metrics and Loki logs, visualized in Grafana.
 
-This exporter scrapes the Arris S34 web interface and exposes modem signal, channel, and system metrics for Prometheus and Grafana.
-
-Metric names are intentionally kept compatible with the Hitron Coda56 Prometheus Exporter so existing Grafana dashboards continue to work without changes.
-
----
-
-## Features
-
-- Downstream bonded channel metrics
-- Upstream bonded channel metrics
-- Downstream OFDM channel metrics
-- Modem uptime and system time
-- Prometheus metrics endpoint
-- Grafana-ready metrics
+You get:
+- DOCSIS signal metrics
+- Scrape health and timing
+- Parsed modem event counters
+- Full searchable modem event logs
 
 ---
 
-## Exported Metrics
+## Architecture
 
-Downstream bonded channels:
-- modem_downstream_power
-- modem_downstream_snr
-- modem_downstream_correctables
-- modem_downstream_uncorrectables
+Components:
+- Python scraper (Playwright + BeautifulSoup)
+- node_exporter textfile collector
+- Prometheus
+- Grafana
+- Loki
+- Promtail
 
-Upstream bonded channels:
-- modem_upstream_power
-
-Downstream OFDM channels:
-- modem_ofdm_power
-- modem_ofdm_snr
-- modem_ofdm_correctable
-- modem_ofdm_uncorrectable
-
-System metrics:
-- modem_uptime
-- modem_system_time
-- modem_uptime_str
-- modem_scrape_ok
+Data flow:
+1. Python scraper logs into the Arris S34 WebUI
+2. DOCSIS metrics are written to a Prometheus textfile
+3. Event log entries are written as structured JSON lines
+4. Promtail ships event logs to Loki
+5. Grafana visualizes metrics and logs
 
 ---
 
 ## Requirements
 
-- Python 3.8 or newer
-- Network access to the modem at 192.168.100.1
-- Arris S34 web interface credentials
-
-Python dependencies:
-- requests
-- beautifulsoup4
-- prometheus_client
-
----
-
-## Installation
-
-Clone the repository or copy the files manually.
-
-Install Python dependencies:
-
-pip3 install -r requirements.txt
-
-Place the exporter script somewhere permanent, for example:
-
-/usr/bin/arris-s34-exporter.py
-
-Make it executable:
-
-chmod +x /usr/bin/arris-s34-exporter.py
+- Linux x86_64
+- Python 3.9 or newer
+- systemd
+- node_exporter
+- Prometheus
+- Grafana
+- Loki
+- Promtail
 
 ---
 
-## Configuration
+## Python Dependencies
 
-The exporter uses environment variables.
+Install required Python packages:
 
-Required:
-- MODEM_PASSWORD
-
-Optional:
-- MODEM_BASE_URL, default https://192.168.100.1
-- MODEM_USERNAME, default admin
-- EXPORTER_PORT, default 8000
-- SCRAPE_INTERVAL_SECONDS, default 30
-
-Example:
-
-export MODEM_BASE_URL=https://192.168.100.1  
-export MODEM_USERNAME=admin  
-export MODEM_PASSWORD=yourpassword  
-export EXPORTER_PORT=8000  
+pip3 install playwright beautifulsoup4 lxml  
+playwright install chromium
 
 ---
 
-## Running Manually
+## Environment Variables
 
-python3 arris-s34-exporter.py
+Set these for the scraper:
 
-Metrics will be available at:
-
-http://localhost:8000/metrics
+MODEM_BASE_URL=https://192.168.100.1  
+MODEM_USERNAME=admin  
+MODEM_PASSWORD=your_password
 
 ---
 
-## Running as a Systemd Service
+## Python Scraper
 
-Copy the service file to:
+Example location:
+
+/usr/bin/arris_s34_scrape.py
+
+Responsibilities:
+- Log into modem WebUI
+- Scrape DOCSIS status
+- Scrape modem event log
+- Emit Prometheus metrics
+- Write structured event logs
+
+Metrics produced:
+- arris_scrape_success
+- arris_scrape_timestamp_seconds
+- arris_docsis_* metrics
+- arris_eventlog_* metrics
+
+Event logs are written to:
+
+/var/log/arris_s34_eventlog.log
+
+---
+
+## node_exporter Textfile Collector
+
+Directory:
+
+/var/lib/node_exporter/textfile_collector
+
+Wrapper script example:
+
+#!/bin/bash
+/usr/bin/arris_s34_scrape.py \
+  > /var/lib/node_exporter/textfile_collector/arris_s34.prom.tmp \
+  && mv /var/lib/node_exporter/textfile_collector/arris_s34.prom.tmp \
+        /var/lib/node_exporter/textfile_collector/arris_s34.prom
+
+Always use atomic writes.
+
+---
+
+## systemd Service and Timer
+
+Service file:
 
 /etc/systemd/system/arris-s34-exporter.service
 
-Reload systemd and start the service:
+Timer file:
+
+/etc/systemd/system/arris-s34-exporter.timer
+
+Enable:
 
 systemctl daemon-reload  
-systemctl enable --now arris-s34-exporter  
-
-Check status:
-
-systemctl status arris-s34-exporter  
+systemctl enable --now arris-s34-exporter.timer
 
 ---
 
-## Prometheus Configuration
+## Prometheus
 
-Add this to your prometheus.yml under scrape_configs:
+Prometheus scrapes node_exporter.
 
-- job_name: "arris_s34"
-  static_configs:
-    - targets: ["localhost:8000"]
+Expected labels:
+- job=arris_s34_modem
+- instance=localhost:9100
 
-Reload Prometheus after saving the file.
+---
+
+## Loki
+
+Single-binary Loki configuration is sufficient.
+
+Key features:
+- Filesystem storage
+- WAL enabled
+- Metric aggregation enabled
+- No authentication
+
+Listening endpoint:
+
+http://127.0.0.1:3100
+
+---
+
+## Promtail
+
+Promtail is required for log ingestion.
+
+Promtail tails:
+
+/var/log/arris_s34_eventlog.log
+
+Labels added:
+- job=arris_s34_eventlog
+- level
+- host
+- filename
+
+Verify:
+
+systemctl status promtail  
+curl http://127.0.0.1:9080/targets
 
 ---
 
 ## Grafana
 
-This exporter uses the same metric names as the Hitron Coda56 exporter.
+Data sources:
+- Prometheus
+- Loki
 
-Existing Grafana dashboards should continue to work without modification.
+Dashboard includes:
+- Scrape success and age
+- DOCSIS downstream and upstream metrics
+- Corrected and uncorrected error rates
+- Event counters
+- Time since last modem event
+- Time since last WebGUI login
+- Live modem event logs
+
+LogQL example:
+
+{job="arris_s34_eventlog"}
+
+Filter example:
+
+{job="arris_s34_eventlog"} |= "login"
 
 ---
 
-## Troubleshooting
+## Validation
 
-If modem_scrape_ok is 0:
+Metrics check:
 
-- Verify the modem password
-- Confirm the modem UI is reachable at https://192.168.100.1
-- Confirm the firmware exposes cmSignalData.htm and cmconnectionstatus.html
+curl http://127.0.0.1:9100/metrics | grep arris_
 
-Manual test:
+Logs check:
 
-curl -k -u admin:PASSWORD https://192.168.100.1/cmSignalData.htm  
-curl -k -u admin:PASSWORD https://192.168.100.1/cmconnectionstatus.html  
-
-If table headers differ due to firmware changes, the parser may require adjustment.
+curl -G http://127.0.0.1:3100/loki/api/v1/query_range \
+  --data-urlencode 'query={job="arris_s34_eventlog"}' \
+  --data-urlencode "start=$(date -d '5 minutes ago' +%s)000000000"
 
 ---
 
 ## Notes
 
-- The Arris S34 does not provide a JSON API
-- All metrics are scraped from the HTML interface
-- Firmware updates may change table formats
+- The Arris S34 WebUI is brittle, headless Chromium is the most reliable method
+- Event logs reset on modem reboot
+- Metrics and logs are intentionally separated
+- Loki provides full forensic visibility
 
 ---
 
-## License
+## Result
 
-MIT
+You now have full modem observability:
+- Reliable DOCSIS metrics
+- Scrape health validation
+- Full modem event history
+- Searchable logs in Grafana
