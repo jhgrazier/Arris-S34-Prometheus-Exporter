@@ -19,17 +19,11 @@
   "links": [],
   "panels": [
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          }
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] }
         },
         "overrides": []
       },
@@ -47,24 +41,16 @@
         "wideLayout": true
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        { "expr": "arris_scrape_success{job=\"$job\",instance=\"$instance\"}", "legendFormat": "", "refId": "A" }
-      ],
+      "targets": [{ "expr": "arris_scrape_success{job=\"$job\",instance=\"$instance\"}", "legendFormat": "", "refId": "A" }],
       "title": "Scrape Success",
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
           "unit": "s"
         },
         "overrides": []
@@ -83,14 +69,12 @@
         "wideLayout": true
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        { "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}", "legendFormat": "", "refId": "A" }
-      ],
+      "targets": [{ "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}", "legendFormat": "", "refId": "A" }],
       "title": "Scrape Age (seconds)",
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -117,13 +101,7 @@
             "thresholdsStyle": { "mode": "off" }
           },
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
           "unit": "s"
         },
         "overrides": []
@@ -135,14 +113,12 @@
         "tooltip": { "hideZeros": false, "mode": "single", "sort": "none" }
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        { "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}", "legendFormat": "age", "refId": "A" }
-      ],
+      "targets": [{ "expr": "time() - arris_scrape_timestamp_seconds{job=\"$job\",instance=\"$instance\"}", "legendFormat": "age", "refId": "A" }],
       "title": "Scrape Age (time series)",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -169,13 +145,7 @@
             "thresholdsStyle": { "mode": "off" }
           },
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
           "unit": "dB"
         },
         "overrides": []
@@ -187,14 +157,12 @@
         "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        { "expr": "arris_docsis_downstream_power_dbmv{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }
-      ],
+      "targets": [{ "expr": "arris_docsis_downstream_power_dbmv{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }],
       "title": "Downstream Power (dBmV) by Channel",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -221,13 +189,7 @@
             "thresholdsStyle": { "mode": "off" }
           },
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
           "unit": "dB"
         },
         "overrides": []
@@ -239,14 +201,13 @@
         "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        { "expr": "arris_docsis_downstream_snr_db{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }
-      ],
+      "targets": [{ "expr": "arris_docsis_downstream_snr_db{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }],
       "title": "Downstream SNR (dB) by Channel",
       "type": "timeseries"
     },
+
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -255,7 +216,7 @@
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
-            "axisPlacement": "auto",
+            "axisPlacement": "hidden",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
@@ -273,14 +234,9 @@
             "thresholdsStyle": { "mode": "off" }
           },
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          },
-          "unit": "ops"
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
+          "unit": "locale",
+          "decimals": 0
         },
         "overrides": []
       },
@@ -291,18 +247,58 @@
         "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "expr": "rate(arris_docsis_downstream_corrected_total{job=\"$job\",instance=\"$instance\"}[5m])",
-          "legendFormat": "CH {{channel}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Downstream Corrected (rate/s) by Channel",
+      "targets": [{ "expr": "arris_docsis_downstream_corrected_total{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }],
+      "title": "Downstream Correctables (total) by Channel",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "hidden",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
+          "unit": "locale",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 18 },
+      "id": 7,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "table", "placement": "right", "showLegend": true },
+        "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [{ "expr": "arris_docsis_downstream_uncorrectables_total{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }],
+      "title": "Downstream Uncorrectables (total) by Channel",
+      "type": "timeseries"
+    },
+
+    {
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -329,87 +325,129 @@
             "thresholdsStyle": { "mode": "off" }
           },
           "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": 0 },
-              { "color": "red", "value": 80 }
-            ]
-          },
-          "unit": "ops"
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": 0 }, { "color": "red", "value": 80 }] },
+          "unit": "dB"
         },
         "overrides": []
       },
-      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 18 },
-      "id": 7,
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 28 },
+      "id": 8,
       "options": {
         "legend": { "calcs": [], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
       },
       "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "expr": "rate(arris_docsis_downstream_uncorrectables_total{job=\"$job\",instance=\"$instance\"}[5m])",
-          "legendFormat": "CH {{channel}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Downstream Uncorrectables (rate/s) by Channel",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "ddv99gh5ntypsb" },
-      "fieldConfig": { "defaults": { "unit": "dB" }, "overrides": [] },
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 28 },
-      "id": 8,
-      "options": {
-        "legend": { "displayMode": "table", "placement": "right", "showLegend": true },
-        "tooltip": { "mode": "multi" }
-      },
-      "targets": [
-        { "expr": "arris_docsis_upstream_power_dbmv{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }
-      ],
+      "targets": [{ "expr": "arris_docsis_upstream_power_dbmv{job=\"$job\",instance=\"$instance\"}", "legendFormat": "CH {{channel}}", "refId": "A" }],
       "title": "Upstream Power (dBmV) by Channel",
       "type": "timeseries"
     },
 
     {
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "hidden",
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "unit": "locale",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 38 },
+      "id": 15,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "table", "placement": "right", "showLegend": true },
+        "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [{ "expr": "increase(arris_docsis_downstream_corrected_total{job=\"$job\",instance=\"$instance\"}[$__rate_interval])", "legendFormat": "CH {{channel}}", "refId": "A" }],
+      "title": "Downstream Correctables (increase) by Channel",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "REPLACE_WITH_YOUR_PROMETHEUS_ID" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "hidden",
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "unit": "locale",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 38 },
+      "id": 16,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "table", "placement": "right", "showLegend": true },
+        "tooltip": { "hideZeros": false, "mode": "multi", "sort": "none" }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [{ "expr": "increase(arris_docsis_downstream_uncorrectables_total{job=\"$job\",instance=\"$instance\"}[$__rate_interval])", "legendFormat": "CH {{channel}}", "refId": "A" }],
+      "title": "Downstream Uncorrectables (increase) by Channel",
+      "type": "timeseries"
+    },
+
+    {
       "datasource": { "type": "loki", "uid": "$loki_uid" },
-      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 38 },
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 48 },
       "id": 100,
       "options": {
-        "showTime": true,
-        "showLabels": false,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
         "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showLabels": false,
+        "showTime": true,
         "sortOrder": "Descending",
-        "prettifyLogMessage": true
+        "wrapLogMessage": true
       },
-      "targets": [
-        {
-          "expr": "{job=\"$loki_job\"} | json | line_format \"{{.ts}} [{{.level}}] {{.desc}}\"",
-          "refId": "A"
-        }
-      ],
+      "targets": [{ "expr": "{job=\"$loki_job\"} | json | line_format \"{{.ts}} [{{.level}}] {{.desc}}\"", "refId": "A" }],
       "title": "Arris S34 Event Log (live)",
       "type": "logs"
     },
     {
       "datasource": { "type": "loki", "uid": "$loki_uid" },
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 52 },
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 62 },
       "id": 101,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "targets": [
-        {
-          "expr": "{job=\"$loki_job\"} | json",
-          "format": "table",
-          "refId": "A"
-        }
-      ],
+      "options": { "showHeader": true, "sortBy": [] },
+      "targets": [{ "expr": "{job=\"$loki_job\"} | json", "format": "table", "refId": "A" }],
       "title": "Arris S34 Event Log (table view from JSON)",
       "type": "table"
     }
@@ -420,46 +458,16 @@
   "tags": ["prometheus", "docsis", "arris", "eventlog", "loki"],
   "templating": {
     "list": [
-      {
-        "current": { "text": "arris_s34_modem", "value": "arris_s34_modem" },
-        "hide": 2,
-        "name": "job",
-        "query": "arris_s34_modem",
-        "skipUrlSync": true,
-        "type": "constant"
-      },
-      {
-        "current": { "text": "localhost:9100", "value": "localhost:9100" },
-        "hide": 2,
-        "name": "instance",
-        "query": "localhost:9100",
-        "skipUrlSync": true,
-        "type": "constant"
-      },
-      {
-        "current": { "text": "REPLACE_WITH_YOUR_LOKI_UID", "value": "REPLACE_WITH_YOUR_LOKI_UID" },
-        "hide": 2,
-        "name": "loki_uid",
-        "query": "REPLACE_WITH_YOUR_LOKI_UID",
-        "skipUrlSync": true,
-        "type": "constant"
-      },
-      {
-        "current": { "text": "arris_s34_eventlog", "value": "arris_s34_eventlog" },
-        "hide": 2,
-        "name": "loki_job",
-        "query": "arris_s34_eventlog",
-        "skipUrlSync": true,
-        "type": "constant"
-      }
+      { "current": { "text": "arris_s34_modem", "value": "arris_s34_modem" }, "hide": 2, "name": "job", "query": "arris_s34_modem", "skipUrlSync": true, "type": "constant" },
+      { "current": { "text": "localhost:9100", "value": "localhost:9100" }, "hide": 2, "name": "instance", "query": "localhost:9100", "skipUrlSync": true, "type": "constant" },
+      { "current": { "text": "REPLACE_WITH_YOUR_LOKI_ID", "value": "REPLACE_WITH_YOUR_LOKI_ID" }, "hide": 2, "name": "loki_uid", "query": "REPLACE_WITH_YOUR_LOKI_ID", "skipUrlSync": true, "type": "constant" },
+      { "current": { "text": "arris_s34_eventlog", "value": "arris_s34_eventlog" }, "hide": 2, "name": "loki_job", "query": "arris_s34_eventlog", "skipUrlSync": true, "type": "constant" }
     ]
   },
   "time": { "from": "now-24h", "to": "now" },
-  "timepicker": {
-    "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m", "30m", "1h"]
-  },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m", "30m", "1h"] },
   "timezone": "browser",
   "title": "Arris S34 Modem",
   "uid": "arris-s34-modem",
-  "version": 7
+  "version": 21
 }
