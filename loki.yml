@@ -47,8 +47,9 @@ ingester:
 
 querier:
   max_concurrent: 4
-  engine:
-    enable_multi_variant_queries: false
+#  engine:
+#    enable_multi_variant_queries: false
+
 
 query_range:
   results_cache:
